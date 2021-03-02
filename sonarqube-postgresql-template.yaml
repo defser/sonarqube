@@ -259,8 +259,6 @@ objects:
             - name: sonar-plugins
               persistentVolumeClaim:
                 claimName: sonarqube-data
-          imagePullSecrets:
-            - name: ${PULL_CREDS}
       triggers:
         - type: ConfigChange
         - imageChangeParams:
@@ -464,8 +462,3 @@ parameters:
     description: The class of the volume; netapp-file-standard
     required: false
     value: netapp-file-standard
-  - name: PULL_CREDS
-    displayName: Pull-Credentials
-    description: The name of the secret that will be used to pull from a docker server
-    required: false
-    value: artifactory-creds

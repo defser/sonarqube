@@ -7,23 +7,70 @@ metadata:
     tags: "instant-app,sonarqube"
   name: sonarqube
 objects:
-  - kind: NetworkSecurityPolicy
-    apiVersion: security.devops.gov.bc.ca/v1alpha1
+
+  - kind: NetworkPolicy
+    apiVersion: networking.k8s.io/v1
     metadata:
-      name: sonarqube
+      name: ${SONARQUBE_ROLE}-allow-ingress
       labels:
-        name: sonarqube
+        name: ${SONARQUBE_ROLE}-allow-ingress
         app: sonarqube
-        role: ${SONARQUBE_ROLE}
+    spec:
+      description: |
+        Allow traffic from routes into the ${SONARQUBE_ROLE} container(s).
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  network.openshift.io/policy-group: ingress
+      podSelector:
+        matchLabels:
+          app: sonarqube
+          role: ${SONARQUBE_ROLE}
+      policyTypes:
+        - Ingress
+
+  - kind: NetworkPolicy
+    apiVersion: networking.k8s.io/v1
+    metadata:
+      name: ${SONARQUBE_DATABASE_ROLE}
+      labels:
+        name: ${SONARQUBE_DATABASE_ROLE}
+        app: sonarqube
     spec:
       description: |
         SonarQube to talk to it's database.
-      source:
-        - - app=sonarqube
-          - role=${SONARQUBE_ROLE}
-      destination:
-        - - app=sonarqube
-          - role=${SONARQUBE_DATABASE_ROLE}
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: sonarqube
+                  role: ${SONARQUBE_ROLE}
+          ports:
+            - protocol: TCP
+              port: 5432
+      podSelector:
+        matchLabels:
+          app: sonarqube
+          role: ${SONARQUBE_DATABASE_ROLE}
+
+  # - kind: NetworkSecurityPolicy
+  #   apiVersion: security.devops.gov.bc.ca/v1alpha1
+  #   metadata:
+  #     name: sonarqube
+  #     labels:
+  #       name: sonarqube
+  #       app: sonarqube
+  #       role: ${SONARQUBE_ROLE}
+  #   spec:
+  #     description: |
+  #       SonarQube to talk to it's database.
+  #     source:
+  #       - - app=sonarqube
+  #         - role=${SONARQUBE_ROLE}
+  #     destination:
+  #       - - app=sonarqube
+  #         - role=${SONARQUBE_DATABASE_ROLE}
 
   - apiVersion: v1
     kind: Service

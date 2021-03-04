@@ -151,7 +151,7 @@ objects:
             tags: sonarqube
           from:
             kind: DockerImage
-            name: "docker-remote.artifacts.developer.gov.bc.ca/bcgovimages/sonarqube:${SONARQUBE_VERSION}"
+            name: "${SONARQUBE_SOURCE_IMAGE_NAME}:${SONARQUBE_VERSION}"
           importPolicy: {}
           name: "${SONARQUBE_VERSION}"
 
@@ -426,6 +426,10 @@ parameters:
     displayName: SonarQube version
     required: true
     value: "sonarqube-db"
+  - displayName: SonarQube Source Image Name
+    name: SONARQUBE_SOURCE_IMAGE_NAME
+    required: true
+    value: docker-remote.artifacts.developer.gov.bc.ca/bcgovimages/sonarqube
   - displayName: SonarQube version
     name: SONARQUBE_VERSION
     required: true

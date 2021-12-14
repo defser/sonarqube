@@ -200,6 +200,8 @@ objects:
                   value: sonar
                 - name: SONAR_FORCEAUTHENTICATION
                   value: "true"
+                - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
+                  value: "true"
               volumeMounts:
                 - mountPath: /opt/sonarqube/data
                   name: sonar-data

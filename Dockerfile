@@ -3,7 +3,7 @@ FROM sonarqube:8-community
 MAINTAINER Erik Jacobs <erikmjacobs@gmail.com>
 MAINTAINER Siamak Sadeghianfar <siamaksade@gmail.com>
 MAINTAINER Roland Stens (roland.stens@gmail.com)
-MAINTAINER Wade Barnes (wade.barnes@shaw.ca)
+MAINTAINER Wade Barnes (wade@neoterictech.ca)
 MAINTAINER Emiliano Sune (emiliano.sune@gmail.com)
 MAINTAINER Alejandro Sanchez (emailforasr@gmail.com)
 
@@ -21,6 +21,14 @@ LABEL summary="$SUMMARY" \
 # Define Plug-in Versions
 ARG SONAR_ZAP_PLUGIN_VERSION=1.2.0
 ENV SONARQUBE_PLUGIN_DIR="$SONARQUBE_HOME/extensions/plugins"
+# ===============================================================================================
+# Mitigation for CVE-2021-44228
+#
+# References:
+#   - https://logging.apache.org/log4j/2.x/security.html
+# -----------------------------------------------------------------------------------------------
+ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+# ===============================================================================================
 
 # Switch to root for package installs
 USER 0

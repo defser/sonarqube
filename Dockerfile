@@ -1,11 +1,11 @@
 FROM sonarqube:8.9.6-community
 
-MAINTAINER Erik Jacobs <erikmjacobs@gmail.com>
-MAINTAINER Siamak Sadeghianfar <siamaksade@gmail.com>
-MAINTAINER Roland Stens (roland.stens@gmail.com)
-MAINTAINER Wade Barnes (wade@neoterictech.ca)
-MAINTAINER Emiliano Sune (emiliano.sune@gmail.com)
-MAINTAINER Alejandro Sanchez (emailforasr@gmail.com)
+LABEL maintainer="Erik Jacobs <erikmjacobs@gmail.com>"
+LABEL maintainer="Siamak Sadeghianfar <siamaksade@gmail.com>"
+LABEL maintainer="Roland Stens (roland.stens@gmail.com)"
+LABEL maintainer="Wade Barnes (wade@neoterictech.ca)"
+LABEL maintainer="Emiliano Sune (emiliano.sune@gmail.com)"
+LABEL maintainer="Alejandro Sanchez (emailforasr@gmail.com)"
 
 ENV SUMMARY="SonarQube for bcgov OpenShift" \
     DESCRIPTION="This image creates the SonarQube image for use at bcgov/OpenShift"
@@ -19,7 +19,7 @@ LABEL summary="$SUMMARY" \
   release="$SONAR_VERSION"
 
 # Define Plug-in Versions
-ARG SONAR_ZAP_PLUGIN_VERSION=1.2.0
+ARG SONAR_ZAP_PLUGIN_VERSION=2.3.0
 ENV SONARQUBE_PLUGIN_DIR="$SONARQUBE_HOME/extensions/plugins"
 
 # Switch to root for package installs

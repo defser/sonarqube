@@ -1,4 +1,4 @@
-FROM sonarqube:8.2-community
+FROM sonarqube:8.9.6-community
 
 MAINTAINER Erik Jacobs <erikmjacobs@gmail.com>
 MAINTAINER Siamak Sadeghianfar <siamaksade@gmail.com>
@@ -24,23 +24,8 @@ ENV SONARQUBE_PLUGIN_DIR="$SONARQUBE_HOME/extensions/plugins"
 
 # Switch to root for package installs
 USER 0
-RUN apt-get update && \
-    apt-get install -y curl zip
-
-# ===============================================================================================
-# Mitigation for CVE-2021-44228 and CVE-2021-45046
-#   - Set LOG4J_FORMAT_MSG_NO_LOOKUPS=true
-#   - Remove JndiLookup.class from the classpath.
-#
-# References:
-#   - https://logging.apache.org/log4j/2.x/security.html
-#
-# Search for jars containing JndiLookup.class:
-#   - find / -name log4j-core*.jar -exec unzip -vl {} \; 2>/dev/null | grep JndiLookup.class
-# -----------------------------------------------------------------------------------------------
-ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
-RUN find / -name log4j-core*.jar -exec zip -q -d {} org/apache/logging/log4j/core/lookup/JndiLookup.class \; 2>/dev/null
-# ===============================================================================================
+RUN apk update && \
+    apk add curl
 
 # ================================================================================================================================================================================
 # Bundle Plug-in(s)

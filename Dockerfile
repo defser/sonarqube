@@ -1,4 +1,4 @@
-FROM sonarqube:8.9.6-community
+FROM sonarqube:lts-community
 
 LABEL maintainer="Erik Jacobs <erikmjacobs@gmail.com>"
 LABEL maintainer="Siamak Sadeghianfar <siamaksade@gmail.com>"

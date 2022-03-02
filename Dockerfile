@@ -40,7 +40,7 @@ RUN set -x \
 # Sonarqube Community Branch Plugin - https://github.com/mc1arke/sonarqube-community-branch-plugin
 RUN set -x \
   && cd "$SONARQUBE_PLUGIN_DIR" \
-  && curl -o "sonarqube-community-branch-plugin-$COMUNITY_BRANCH_PLUGIN_VERSION.jar" -fsSL "https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/$SONAR_ZAP_PLUGIN_VERSION/sonarqube-community-branch-plugin-$SONAR_ZAP_PLUGIN_VERSION.jar"
+  && curl -o "sonarqube-community-branch-plugin-$COMUNITY_BRANCH_PLUGIN_VERSION.jar" -fsSL "https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/$COMUNITY_BRANCH_PLUGIN_VERSION/sonarqube-community-branch-plugin-$COMUNITY_BRANCH_PLUGIN_VERSION.jar"
 
 WORKDIR $SONARQUBE_HOME
 

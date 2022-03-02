@@ -20,6 +20,7 @@ LABEL summary="$SUMMARY" \
 
 # Define Plug-in Versions
 ARG SONAR_ZAP_PLUGIN_VERSION=2.3.0
+ARG COMUNITY_BRANCH_PLUGIN_VERSION=1.8.1
 ENV SONARQUBE_PLUGIN_DIR="$SONARQUBE_HOME/extensions/plugins"
 
 # Switch to root for package installs
@@ -35,6 +36,11 @@ RUN apk update && \
 RUN set -x \
   && cd "$SONARQUBE_PLUGIN_DIR" \
   && curl -o "sonar-zap-plugin-$SONAR_ZAP_PLUGIN_VERSION.jar" -fsSL "https://github.com/Coveros/zap-sonar-plugin/releases/download/sonar-zap-plugin-$SONAR_ZAP_PLUGIN_VERSION/sonar-zap-plugin-$SONAR_ZAP_PLUGIN_VERSION.jar"
+
+# Sonarqube Community Branch Plugin - https://github.com/mc1arke/sonarqube-community-branch-plugin
+RUN set -x \
+  && cd "$SONARQUBE_PLUGIN_DIR" \
+  && curl -o "sonarqube-community-branch-plugin-$COMUNITY_BRANCH_PLUGIN_VERSION.jar" -fsSL "https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/$SONAR_ZAP_PLUGIN_VERSION/sonarqube-community-branch-plugin-$SONAR_ZAP_PLUGIN_VERSION.jar"
 
 WORKDIR $SONARQUBE_HOME
 
